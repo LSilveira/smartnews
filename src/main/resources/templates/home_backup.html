@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New's feed</title>
+
+<!--    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}" ></script>-->
+    <script th:src="@{js/core.js}" ></script>
+    <link th:href="@{/css/core.css}" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body class="hidden-sn mdb-skin">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+<!--                <form class="form-inline" th:action="@{/logout}" method="post">-->
+<!--                    <div class="header-left">-->
+<!--                        <span th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</span>-->
+<!--                    </div>-->
+<!--                    <div class="header-right">-->
+<!--                        <a th:href="@{/user-setting}">User Settings</a>-->
+<!--                        <input type="button" value="Sign Out"/>-->
+<!--                    </div>-->
+<!--                </form>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/user-setting}">User Settings</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div id="content">
+        <h1>New's feed</h1>
+
+        <table>
+
+        </table>
+    </div>
+
+</body>
+</html>

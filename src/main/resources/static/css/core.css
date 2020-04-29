@@ -1,0 +1,29 @@
+#login-button {
+  margin-top: 14px;
+}
+
+.header-left{
+    float: left;
+}
+
+.header-right{
+    float: right;
+}
+
+.content {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.create-menu {
+  margin-top: 80px;
+}
+
+.form-line {
+  float: left;
+}
+
+.hidden {
+  display: none;
+}

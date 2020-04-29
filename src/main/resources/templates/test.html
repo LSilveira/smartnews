@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Page</title>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}" ></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" ></script>
+    <!--    <script th:src="@{/webjars/bootstrap-datepicker/js/bootstrap-datepicker.js}" ></script>-->
+    <script th:src="@{js/core.js}" ></script>
+<!--    <script th:src="@{js/scheduler.js}" ></script>-->
+
+<!--    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.css}"/>-->
+<!--    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>-->
+    <!--    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>-->
+    <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{webjars/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+
+    <link th:href="@{/css/core.css}" rel="stylesheet" media="screen" />
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+    <script th:src="@{/webjars/jquery-ui/jquery-ui.js}" ></script>
+    <link th:href="@{/webjars/jquery-ui/jquery-ui.css}" rel="stylesheet" media="screen" />
+
+<!--    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+<!--    <link rel="stylesheet" href="/resources/demos/style.css">-->
+<!--    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+<!--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+    <script>
+        $(document).ready( function() {
+            $( "#datetimepicker1" ).datepicker();
+        } );
+    </script>
+</head>
+<body class="hidden-sn mdb-skin">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" th:href="@{/}">SmartNews</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <li id="login-button" class="dropdown navbar-form navbar-right" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/user-setting}">User Settings</a></li>
+                        <li><a th:href="@{/logout}">Sign Out</a></li>
+                    </ul>
+                </li>
+            </div><!--/.navbar-collapse -->
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Test Page</h2>
+                <p>Date: <input type="text" id="datetimepicker1"></p>
+<!--                <div class='input-group date' id='datetimepicker1'>-->
+<!--                    <input type='text' class="form-control" />-->
+<!--                    <span class="input-group-addon">-->
+<!--                                <span class="glyphicon glyphicon-calendar"></span>-->
+<!--                            </span>-->
+<!--                </div>-->
+            </div>
+        </div>
+
+        <hr>
+
+        <footer>
+            <p>© 2020 Company, Inc.</p>
+        </footer>
+    </div> <!-- /container -->
+
+</body>
+</html>

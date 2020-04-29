@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User Settings</title>
+
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}" ></script>
+    <script th:src="@{js/core.js}" ></script>
+    <link th:href="@{/css/core.css}" rel="stylesheet" media="screen" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</head>
+<body class="hidden-sn mdb-skin">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/}">SmartNews</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <li id="login-button" class="dropdown navbar-form navbar-right" >
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</span> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a th:href="@{/user-setting}">User Settings</a></li>
+                    <li><a href="#">Sign Out</a></li>
+                </ul>
+            </li>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="container create-menu">
+    <form action="#" th:action="@{/user-setting/rss}" th:object="${aggregatorForm}" method="post">
+        <fieldset>
+            <legend th:text="#{userSettings.new_rss}">New RSS source</legend>
+
+            <table>
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Url: <input type="text" th:field="*{url}" />
+                        </td>
+                        <td>
+                            <span class="form-line" th:if="${#fields.hasErrors('url')}" th:errors="*{url}">Url Error</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Category: <input type="text" th:field="*{category}" />
+                        </td>
+                        <td>
+                            <span class="form-line" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category Error</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+<!--            <div>-->
+<!--                <p class="form-line">Url: <input type="text" th:field="*{url}" /></p>-->
+<!--                <div class="form-line" th:if="${#fields.hasErrors('url')}" th:errors="*{url}">Url Error</div>-->
+<!--            </div>-->
+
+<!--            <div>-->
+<!--                <p>Category: <input type="text" th:field="*{category}" /></p>-->
+<!--                <div class="form-line" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category Error</div>-->
+<!--            </div>-->
+
+            <p><button type="submit" class="btn btn-success"><span th:text="#{userSettings.create}"></span></button></p>
+        </fieldset>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>RSS urls</h2>
+            <div th:if="${#lists.isEmpty(aggregators)}">
+                There are no aggregators!!
+            </div>
+            <div th:unless="${#lists.isEmpty(aggregators)}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Url</td>
+                        <td>Category</td>
+                        <td>Available</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="aggregator : ${aggregators}">
+                        <td><span th:text="${aggregator.url}"></span></td>
+                        <td><span th:text="${aggregator.category}"></span></td>
+                        <td><span th:text="${aggregator.available}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>-->
+                <!--                <p><a class="btn btn-default" href="#" role="button">View details »</a></p>-->
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>© 2020 Company, Inc.</p>
+    </footer>
+</div> <!-- /container -->
+
+</body>
+</html>
