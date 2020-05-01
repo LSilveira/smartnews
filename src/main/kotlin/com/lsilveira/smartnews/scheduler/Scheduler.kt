@@ -34,7 +34,8 @@ class Scheduler
                 SchedulerType.ONCE -> newsSingleTask(schedulerConfig.aggregatorMapping,
                         aggregator, schedulerConfig.date?:throw SchedulingException("Invalid date!"))
                 SchedulerType.REPEATABLE -> newsRepeatableTask(schedulerConfig.aggregatorMapping,
-                        aggregator, schedulerConfig.timeUnit?:throw SchedulingException("Invalid time unit!"))
+                        aggregator, schedulerConfig.timeUnit?:throw SchedulingException("Invalid time unit!"),
+                        schedulerConfig.timeScale?:throw SchedulingException("Invalid time scale!"))
             }
         }
         else
@@ -55,10 +56,11 @@ class Scheduler
     }
 
     private fun newsRepeatableTask(aggregatorMapping: AggregatorMapping, aggregator: Aggregator,
-                                   timeUnit: Long)
+                                   timeUnit: Long,
+                                   timeScale: SchedulerTimeScale)
     {
         executor.scheduleAtFixedRate(AggregateNewsTask(newsService, aggregatorMapping, aggregator),
-                timeUnit)
+                timeUnit * timeScale.scale)
         logger.info("[Scheduled-Repeatable-Task] $timeUnit ${aggregatorMapping.category}")
     }
 }
