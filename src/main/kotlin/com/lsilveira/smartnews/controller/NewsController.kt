@@ -40,7 +40,7 @@ class NewsController
 //        view.addObject("newsForm", NewsForm())
 
         val context = AggregatorContext(newsForm.aggregatorId)
-        val data = rssAggregator.aggregate(context)
+        val data = rssAggregator.aggregate(context) //TODO aggregate can return null, this needs to be handled
         view.addObject("rssNews", data)
 
         return view

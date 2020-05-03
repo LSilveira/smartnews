@@ -67,12 +67,12 @@
                 <tr>
                     <td>
                         Aggregator Component:
-                        <select th:field="*{aggregatorComponent}">
-                            <option th:each="aggregatorComponent : ${aggregatorComponents}" th:value="${aggregatorComponent}" th:text="${aggregatorComponent}">Template</option>
+                        <select th:field="*{aggregatorType}">
+                            <option th:each="aggregatorType : ${aggregatorTypes}" th:value="${aggregatorType}" th:text="${aggregatorType}">Template</option>
                         </select>
                     </td>
                     <td>
-                        <span class="form-line" th:if="${#fields.hasErrors('aggregatorComponent')}" th:errors="*{aggregatorComponent}">Aggregator Component Error</span>
+                        <span class="form-line" th:if="${#fields.hasErrors('aggregatorType')}" th:errors="*{aggregatorType}">Aggregator Type Error</span>
                     </td>
                 </tr>
                 <tr>

@@ -2,7 +2,7 @@ package com.lsilveira.smartnews.controller
 
 import com.lsilveira.smartnews.exception.SchedulerException
 import com.lsilveira.smartnews.form.SchedulerForm
-import com.lsilveira.smartnews.model.aggregator.AggregatorComponent
+import com.lsilveira.smartnews.model.aggregator.AggregatorType
 import com.lsilveira.smartnews.scheduler.SchedulerTimeScale
 import com.lsilveira.smartnews.scheduler.SchedulerType
 import com.lsilveira.smartnews.service.ScheduleService
@@ -43,8 +43,8 @@ class SchedulerController
                         .name))
         view.addObject("schedulerTypes", SchedulerType.values()
                 .map { schedulerType -> schedulerType.name })
-        view.addObject("aggregatorComponents", AggregatorComponent.values()
-                .map { aggregatorComponent -> aggregatorComponent.name })
+        view.addObject("aggregatorTypes", AggregatorType.values()
+                .map { aggregatorType -> aggregatorType.name })
         view.addObject("timeScales", SchedulerTimeScale.values()
                 .map { schedulerTimeScale -> schedulerTimeScale.name })
         view.addObject("scheduledTasks", scheduleService.getUserSchedules(userName))
@@ -113,7 +113,7 @@ class SchedulerController
         }
 
         scheduleService.createScheduledTask(schedulerForm.aggregatorMappingId, schedulerType,
-                dateTime!!, schedulerForm.aggregatorComponent)
+                dateTime!!, schedulerForm.aggregatorType)
     }
 
     private fun createMultipleSchedules(schedulerForm: SchedulerForm, schedulerType: SchedulerType,
@@ -132,6 +132,6 @@ class SchedulerController
         }
 
         scheduleService.createScheduledTask(schedulerForm.aggregatorMappingId, schedulerType,
-                timeUnit!!, timeScale!!, schedulerForm.aggregatorComponent)
+                timeUnit!!, timeScale!!, schedulerForm.aggregatorType)
     }
 }

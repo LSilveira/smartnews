@@ -22,7 +22,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter()
                 .loginPage("/login")
                 .permitAll()
                 .and()
-                .csrf().disable().cors()
+                .csrf().disable().cors() //TODO remove this to do it properly
                 .and()
                 .logout()
                 .permitAll()
