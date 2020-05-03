@@ -1,7 +1,7 @@
 package com.lsilveira.smartnews.service.impl
 
 import com.lsilveira.smartnews.exception.SchedulerException
-import com.lsilveira.smartnews.model.aggregator.AggregatorComponent
+import com.lsilveira.smartnews.model.aggregator.AggregatorType
 import com.lsilveira.smartnews.repository.SchedulerConfigRepository
 import com.lsilveira.smartnews.scheduler.Scheduler
 import com.lsilveira.smartnews.scheduler.SchedulerConfig
@@ -27,29 +27,29 @@ class ScheduleServiceImpl : ScheduleService
 
     override fun createScheduledTask(aggregatorMappingId: Long, schedulerType: SchedulerType,
                                      timeUnit: Long, timeScale: SchedulerTimeScale,
-                                     aggregatorComponent: String)
+                                     aggregatorType: String)
     {
         val aggregatorMapping = userSettingService.getAggregatorMapping(aggregatorMappingId)
                 ?:throw SchedulerException("$aggregatorMappingId is an invalid aggregator mapping ID!")
 
-        val component = AggregatorComponent.valueOf(aggregatorComponent)
+        val type = AggregatorType.valueOf(aggregatorType)
 
         val schedulerConfig = SchedulerConfig(aggregatorMapping, schedulerType, timeUnit,
-                timeScale, null, component, false)
+                timeScale, null, type, false)
 
         schedulerConfigRepository.save(schedulerConfig)
     }
 
     override fun createScheduledTask(aggregatorMappingId: Long, schedulerType: SchedulerType,
-                                     date: Date, aggregatorComponent: String)
+                                     date: Date, aggregatorType: String)
     {
         val aggregatorMapping = userSettingService.getAggregatorMapping(aggregatorMappingId)
                 ?:throw SchedulerException("$aggregatorMappingId is an invalid aggregator mapping ID!")
 
-        val component = AggregatorComponent.valueOf(aggregatorComponent)
+        val type = AggregatorType.valueOf(aggregatorType)
 
         val schedulerConfig = SchedulerConfig(aggregatorMapping, schedulerType, null,
-                null, date, component, false)
+                null, date, type, false)
 
         schedulerConfigRepository.save(schedulerConfig)
     }

@@ -25,7 +25,7 @@ class Scheduler
 
     fun runSchedule(schedulerConfig: SchedulerConfig)
     {
-        val aggregator = schedulerConfig.aggregatorComponent.getAggregator()
+        val aggregator = schedulerConfig.aggregatorType.getAggregator()
 
         if (schedulerConfig.enabled)
         {

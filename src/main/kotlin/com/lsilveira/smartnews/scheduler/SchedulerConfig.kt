@@ -1,6 +1,7 @@
 package com.lsilveira.smartnews.scheduler
 
-import com.lsilveira.smartnews.model.aggregator.AggregatorComponent
+import com.lsilveira.smartnews.model.aggregator.AggregatorType
+import com.lsilveira.smartnews.model.aggregator.news.AggregatedData
 import com.lsilveira.smartnews.model.settings.AggregatorMapping
 import java.util.*
 import javax.persistence.*
@@ -18,10 +19,15 @@ data class SchedulerConfig
         val timeScale: SchedulerTimeScale?,
         val date: Date?,
 //        val wildcard: String,
-        val aggregatorComponent: AggregatorComponent,
+        val aggregatorType: AggregatorType,
         var enabled: Boolean,
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0
 )
+{
+        @OneToMany(mappedBy = "scheduleConfig", cascade = [CascadeType.ALL], orphanRemoval = true,
+                fetch = FetchType.LAZY)
+        var aggregatedDataList: List<AggregatedData> = mutableListOf()
+}

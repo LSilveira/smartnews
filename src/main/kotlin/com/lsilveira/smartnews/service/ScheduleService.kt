@@ -14,13 +14,13 @@ interface ScheduleService
      * Create a new scheduled task
      */
     fun createScheduledTask(aggregatorMappingId: Long, schedulerType: SchedulerType, timeUnit: Long,
-                            timeScale: SchedulerTimeScale, aggregatorComponent: String)
+                            timeScale: SchedulerTimeScale, aggregatorType: String)
 
     /**
      * Create a new scheduled task
      */
     fun createScheduledTask(aggregatorMappingId: Long, schedulerType: SchedulerType, date: Date,
-                            aggregatorComponent: String)
+                            aggregatorType: String)
 
     /**
      * Schedule a task

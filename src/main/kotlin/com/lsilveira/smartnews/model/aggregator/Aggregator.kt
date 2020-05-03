@@ -10,7 +10,7 @@ interface Aggregator
     /**
      * Start aggregation task
      */
-    fun aggregate(context: AggregatorContext) : AggregatedData
+    fun aggregate(context: AggregatorContext) : AggregatedData?
 
     /**
      * Get aggregator type

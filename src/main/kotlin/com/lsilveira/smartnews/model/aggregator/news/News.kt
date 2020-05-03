@@ -20,13 +20,14 @@ data class News
         var link: String,
         var source: String,
         var publishedDate: Date,
+        var uri: String,
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long = 0
 )
 {
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AGGREGATED_DATA_ID")
     lateinit var aggregatedData: AggregatedData
 }

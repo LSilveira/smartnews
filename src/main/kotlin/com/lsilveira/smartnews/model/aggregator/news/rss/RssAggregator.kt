@@ -6,6 +6,8 @@ import com.lsilveira.smartnews.model.aggregator.AggregatorType
 import com.lsilveira.smartnews.model.aggregator.news.AggregatedData
 import com.lsilveira.smartnews.model.aggregator.news.News
 import com.lsilveira.smartnews.model.aggregator.news.NewsAggregator
+import com.lsilveira.smartnews.service.NewsService
+import com.lsilveira.smartnews.service.SchedulerConfigService
 import com.lsilveira.smartnews.service.UserSettingService
 import com.lsilveira.smartnews.util.UrlHelper
 import com.rometools.rome.feed.synd.SyndFeed
@@ -25,9 +27,15 @@ class RssAggregator: NewsAggregator
     @Autowired
     private lateinit var userSettingService: UserSettingService
 
+    @Autowired
+    private lateinit var schedulerConfigService: SchedulerConfigService
+
+    @Autowired
+    private lateinit var newsService: NewsService
+
     private var restTemplate = RestTemplate()
 
-    override fun aggregate(context: AggregatorContext): AggregatedData
+    override fun aggregate(context: AggregatorContext): AggregatedData?
     {
         val aggregatorMapping = userSettingService.getAggregatorMapping(context.mappingId)
                 ?:throw GetRssDataException("Aggregator id does not exist.")
@@ -37,22 +45,22 @@ class RssAggregator: NewsAggregator
             throw GetRssDataException("Aggregator was disabled.")
         }
 
+        val schedulerConfig = schedulerConfigService.getByAggregatorType(aggregatorMapping.aggregatorType)
+                ?:throw GetRssDataException("Scheduled config does not exist.")
+
         val feed = getRssData(aggregatorMapping.url)
+
+        val validatedFeed = validateRepeatedData(feed)
+
+        if (validatedFeed.isEmpty())
+            return null
 
         return AggregatedData(feed?.title?:"",
                 feed?.language?:"",
                 feed?.description?:"",
                 feed?.publishedDate!!,
-                feed
-                .entries
-                ?.map { syndEntry -> News(
-                        syndEntry.title,
-                        syndEntry?.description?.value?:"",
-                        syndEntry?.link?:"",
-                        syndEntry?.source?.link?:"",
-                        syndEntry.publishedDate)
-                }
-                .orEmpty())
+                validatedFeed,
+                schedulerConfig)
     }
 
     override fun getType(): AggregatorType
@@ -79,5 +87,26 @@ class RssAggregator: NewsAggregator
                 throw GetRssDataException("Response could not be parsed.", e)
             }
         })
+    }
+
+    private fun validateRepeatedData(feed: SyndFeed?) : List<News>
+    {
+        val feedData = feed
+                ?.entries
+                ?.filter { syndEntry -> !newsService.checkIfNewsAreDuplicated(syndEntry) }
+                ?.map { syndEntry -> News(
+                        syndEntry.title,
+                        syndEntry?.description?.value?:"",
+                        syndEntry?.link?:"",
+                        syndEntry?.source?.link?:"",
+                        syndEntry.publishedDate,
+                        syndEntry.uri)
+                }
+                .orEmpty()
+
+        return if (feedData.isNotEmpty())
+            feedData
+        else
+            emptyList()
     }
 }
