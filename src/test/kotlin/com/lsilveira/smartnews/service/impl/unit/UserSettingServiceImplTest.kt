@@ -19,7 +19,6 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.boot.test.context.SpringBootTest
-import java.util.*
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ExtendWith(MockitoExtension::class)
@@ -29,7 +28,7 @@ internal class UserSettingServiceImplTest
     private val USERNAME = "username"
     private val PASSWORD = "password"
     private val AGGREGGATOR_TYPE = AggregatorType.RSS
-    private val CATEGORY = "News"
+    private val TOPIC = "News"
     private val URL = "www.smartnews.com"
 
     @InjectMocks
@@ -52,7 +51,7 @@ internal class UserSettingServiceImplTest
     {
         Assertions.assertThrows(EmptyInputDataException::class.java)
         {
-            userSettingService.addAggregator(USERNAME, AGGREGGATOR_TYPE, "", CATEGORY)
+            userSettingService.addAggregator(USERNAME, AGGREGGATOR_TYPE, "", TOPIC)
         }
     }
 
@@ -61,7 +60,7 @@ internal class UserSettingServiceImplTest
     {
         Assertions.assertThrows(EmptyInputDataException::class.java)
         {
-            userSettingService.addAggregator("", AGGREGGATOR_TYPE, URL, CATEGORY)
+            userSettingService.addAggregator("", AGGREGGATOR_TYPE, URL, TOPIC)
         }
     }
 
@@ -71,10 +70,10 @@ internal class UserSettingServiceImplTest
         val mockUserSetting = UserSetting(USER_SETTING_ID, USERNAME, PASSWORD)
         whenever(userSettingRepository.findByUsername(ArgumentMatchers.anyString())).thenReturn(mockUserSetting)
 
-        val mockAggregatorMapping = AggregatorMapping(mockUserSetting, AGGREGGATOR_TYPE, URL, CATEGORY, true)
+        val mockAggregatorMapping = AggregatorMapping(mockUserSetting, AGGREGGATOR_TYPE, URL, TOPIC, true)
         whenever(aggregatorMappingRepository.save(any<AggregatorMapping>())).thenReturn(mockAggregatorMapping)
 
-        val aggregatorMapping = userSettingService.addAggregator(USERNAME, AGGREGGATOR_TYPE, URL, CATEGORY)
+        val aggregatorMapping = userSettingService.addAggregator(USERNAME, AGGREGGATOR_TYPE, URL, TOPIC)
 
         Assertions.assertNotNull(aggregatorMapping)
         Assertions.assertNotNull(aggregatorMapping.id)

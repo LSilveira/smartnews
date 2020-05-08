@@ -20,7 +20,7 @@ internal class UserSettingServiceImplTest
     private val DB_PASSWORD = "password"
     private val USERNAME = "username2"
     private val AGGREGGATOR_TYPE = AggregatorType.RSS
-    private val CATEGORY = "News"
+    private val TOPIC = "News"
     private val URL = "www.smartnews.com"
 
     @Autowired
@@ -36,7 +36,7 @@ internal class UserSettingServiceImplTest
     {
         Assertions.assertThrows(EmptyInputDataException::class.java)
         {
-            userSettingService.addAggregator(DB_USERNAME, AGGREGGATOR_TYPE, "", CATEGORY)
+            userSettingService.addAggregator(DB_USERNAME, AGGREGGATOR_TYPE, "", TOPIC)
         }
     }
 
@@ -45,14 +45,14 @@ internal class UserSettingServiceImplTest
     {
         Assertions.assertThrows(EmptyInputDataException::class.java)
         {
-            userSettingService.addAggregator("", AGGREGGATOR_TYPE, URL, CATEGORY)
+            userSettingService.addAggregator("", AGGREGGATOR_TYPE, URL, TOPIC)
         }
     }
 
     @Test
     fun addValidAggregator()
     {
-        val aggregatorMapping = userSettingService.addAggregator(DB_USERNAME, AGGREGGATOR_TYPE, URL, CATEGORY)
+        val aggregatorMapping = userSettingService.addAggregator(DB_USERNAME, AGGREGGATOR_TYPE, URL, TOPIC)
 
         Assertions.assertNotNull(aggregatorMapping)
         Assertions.assertNotNull(aggregatorMapping.id)

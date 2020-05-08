@@ -1,6 +1,7 @@
 package com.lsilveira.smartnews.service
 
 import com.lsilveira.smartnews.model.aggregator.news.AggregatedData
+import com.lsilveira.smartnews.model.aggregator.news.News
 import com.rometools.rome.feed.synd.SyndEntry
 
 /**
@@ -17,4 +18,9 @@ interface NewsService
      * Check if news data already exist
      */
     fun checkIfNewsAreDuplicated(syndEntry: SyndEntry): Boolean
+
+    /**
+     * Get news data
+     */
+    fun getData(aggregatorMappingId: Long): List<News>
 }

@@ -1,6 +1,7 @@
 package com.lsilveira.smartnews.model.settings
 
 import com.lsilveira.smartnews.model.aggregator.AggregatorType
+import com.lsilveira.smartnews.scheduler.SchedulerConfig
 import javax.persistence.*
 
 /**
@@ -16,10 +17,14 @@ data class AggregatorMapping
 
         val aggregatorType: AggregatorType = AggregatorType.RSS, // default aggregator
         val url: String,
-        val category: String,
+        val topic: String,
         val available: Boolean,
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0
 )
+{
+        @OneToOne(mappedBy = "aggregatorMapping")
+        var schedulerConfig: SchedulerConfig? = null
+}

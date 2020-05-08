@@ -5,18 +5,16 @@ import com.lsilveira.smartnews.response.ScheduleStateResponse
 import com.lsilveira.smartnews.service.ScheduleService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
+@RequestMapping("/ajax/scheduler")
 class SchedulerAjaxController
 {
     @Autowired
     private lateinit var scheduleService: ScheduleService
 
-    @PostMapping("/scheduler/state")
+    @PostMapping("/state")
     fun changeScheduleState(@RequestBody scheduleStateRequest: ScheduleStateRequest) : ScheduleStateResponse
     {
         val userName = SecurityContextHolder.getContext().authentication.name

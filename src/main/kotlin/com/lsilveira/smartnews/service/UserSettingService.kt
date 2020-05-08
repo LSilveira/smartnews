@@ -12,13 +12,18 @@ interface UserSettingService
     /**
      * Add a new aggregator to the user settings
      */
-    fun addAggregator(username: String, aggregatorType: AggregatorType, url: String, category: String)
+    fun addAggregator(username: String, aggregatorType: AggregatorType, url: String, topic: String)
             : AggregatorMapping
 
     /**
      * Get or create user settings by username
      */
     fun getOrCreateUserSettings(username: String) : UserSetting
+
+    /**
+     * Get or create user settings by username
+     */
+    fun getUserSettings(username: String) : UserSetting
 
     /**
      * Get all aggregators

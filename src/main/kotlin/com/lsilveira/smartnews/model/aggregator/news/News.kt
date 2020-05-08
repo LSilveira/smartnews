@@ -21,6 +21,7 @@ data class News
         var source: String,
         var publishedDate: Date,
         var uri: String,
+        var status: NewsStatus,
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +31,8 @@ data class News
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AGGREGATED_DATA_ID")
     lateinit var aggregatedData: AggregatedData
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROCESSED_NEWS_ID")
+    lateinit var processedNews: ProcessedNews
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Table</title>
+
+</head>
+<body>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Link</td>
+            <td>Source</td>
+            <td>Published Date</td>
+            <td>Status</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="article : ${articles}">
+            <td><span th:text="${article.id}"></span></td>
+            <td><span th:text="${article.title}"></span></td>
+            <td><span th:text="${article.description}"></span></td>
+            <td><span th:text="${article.link}"></span></td>
+            <td><span th:text="${article.source}"></span></td>
+            <td><span th:text="${article.publishedDate}"></span></td>
+            <td><span th:text="${article.status.description}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div id="emptyData">There are no news!!</div>
+
+</body>
+</html>

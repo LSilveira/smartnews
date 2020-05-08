@@ -25,7 +25,7 @@ class Scheduler
 
     fun runSchedule(schedulerConfig: SchedulerConfig)
     {
-        val aggregator = schedulerConfig.aggregatorType.getAggregator()
+        val aggregator = schedulerConfig.aggregatorMapping.aggregatorType.getAggregator()
 
         if (schedulerConfig.enabled)
         {
@@ -40,7 +40,7 @@ class Scheduler
         }
         else
         {
-            logger.info("[Scheduled-Task-Disabled] \"${schedulerConfig.aggregatorMapping.category}\" is disabled!")
+            logger.info("[Scheduled-Task-Disabled] \"${schedulerConfig.aggregatorMapping.topic}\" is disabled!")
         }
     }
 
@@ -52,7 +52,7 @@ class Scheduler
     private fun newsSingleTask(aggregatorMapping: AggregatorMapping, aggregator: Aggregator, date: Date)
     {
         executor.schedule(AggregateNewsTask(newsService, aggregatorMapping, aggregator), date)
-        logger.info("[Scheduled-Single-Task] $date ${aggregatorMapping.category}")
+        logger.info("[Scheduled-Single-Task] $date ${aggregatorMapping.topic}")
     }
 
     private fun newsRepeatableTask(aggregatorMapping: AggregatorMapping, aggregator: Aggregator,
@@ -61,6 +61,6 @@ class Scheduler
     {
         executor.scheduleAtFixedRate(AggregateNewsTask(newsService, aggregatorMapping, aggregator),
                 timeUnit * timeScale.scale)
-        logger.info("[Scheduled-Repeatable-Task] $timeUnit ${aggregatorMapping.category}")
+        logger.info("[Scheduled-Repeatable-Task] $timeUnit ${timeScale.name} ${aggregatorMapping.topic}")
     }
 }

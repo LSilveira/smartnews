@@ -54,7 +54,7 @@
                         <td>
                             My aggregators:
                             <select th:field="${newsForm.aggregatorId}">
-                                <option th:each="aggregator : ${aggregators}" th:value="${aggregator.id}" th:text="${aggregator.category}">Template</option>
+                                <option th:each="aggregator : ${aggregators}" th:value="${aggregator.id}" th:text="${aggregator.topic}">Template</option>
                             </select>
                         </td>
                     </tr>
