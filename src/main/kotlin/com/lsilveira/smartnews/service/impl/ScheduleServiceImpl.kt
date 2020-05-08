@@ -1,7 +1,6 @@
 package com.lsilveira.smartnews.service.impl
 
 import com.lsilveira.smartnews.exception.SchedulerException
-import com.lsilveira.smartnews.model.aggregator.AggregatorType
 import com.lsilveira.smartnews.repository.SchedulerConfigRepository
 import com.lsilveira.smartnews.scheduler.Scheduler
 import com.lsilveira.smartnews.scheduler.SchedulerConfig
@@ -26,30 +25,25 @@ class ScheduleServiceImpl : ScheduleService
     private lateinit var userSettingService: UserSettingService
 
     override fun createScheduledTask(aggregatorMappingId: Long, schedulerType: SchedulerType,
-                                     timeUnit: Long, timeScale: SchedulerTimeScale,
-                                     aggregatorType: String)
+                                     timeUnit: Long, timeScale: SchedulerTimeScale)
     {
         val aggregatorMapping = userSettingService.getAggregatorMapping(aggregatorMappingId)
                 ?:throw SchedulerException("$aggregatorMappingId is an invalid aggregator mapping ID!")
 
-        val type = AggregatorType.valueOf(aggregatorType)
-
         val schedulerConfig = SchedulerConfig(aggregatorMapping, schedulerType, timeUnit,
-                timeScale, null, type, false)
+                timeScale, null, false)
 
         schedulerConfigRepository.save(schedulerConfig)
     }
 
     override fun createScheduledTask(aggregatorMappingId: Long, schedulerType: SchedulerType,
-                                     date: Date, aggregatorType: String)
+                                     date: Date)
     {
         val aggregatorMapping = userSettingService.getAggregatorMapping(aggregatorMappingId)
                 ?:throw SchedulerException("$aggregatorMappingId is an invalid aggregator mapping ID!")
 
-        val type = AggregatorType.valueOf(aggregatorType)
-
         val schedulerConfig = SchedulerConfig(aggregatorMapping, schedulerType, null,
-                null, date, type, false)
+                null, date, false)
 
         schedulerConfigRepository.save(schedulerConfig)
     }

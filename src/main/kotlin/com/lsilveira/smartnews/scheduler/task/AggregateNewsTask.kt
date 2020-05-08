@@ -19,7 +19,7 @@ class AggregateNewsTask
 
     override fun run()
     {
-        val context = AggregatorContext(aggregatorMapping.id)
+        val context = AggregatorContext(aggregatorMapping.id, false)
         val data = aggregator.aggregate(context)
 
         if (data != null)

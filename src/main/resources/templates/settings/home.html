@@ -60,10 +60,10 @@
                     </tr>
                     <tr>
                         <td>
-                            Category: <input type="text" th:field="*{category}" />
+                            Topic: <input type="text" th:field="*{topic}" />
                         </td>
                         <td>
-                            <span class="form-line" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category Error</span>
+                            <span class="form-line" th:if="${#fields.hasErrors('topic')}" th:errors="*{topic}">Topic Error</span>
                         </td>
                     </tr>
                 </tbody>
@@ -74,8 +74,8 @@
 <!--            </div>-->
 
 <!--            <div>-->
-<!--                <p>Category: <input type="text" th:field="*{category}" /></p>-->
-<!--                <div class="form-line" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category Error</div>-->
+<!--                <p>Topic: <input type="text" th:field="*{topic}" /></p>-->
+<!--                <div class="form-line" th:if="${#fields.hasErrors('topic')}" th:errors="*{topic}">Topic Error</div>-->
 <!--            </div>-->
 
             <p><button type="submit" class="btn btn-success"><span th:text="#{userSettings.create}"></span></button></p>
@@ -95,14 +95,14 @@
                     <thead>
                     <tr>
                         <td>Url</td>
-                        <td>Category</td>
+                        <td>Topic</td>
                         <td>Available</td>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="aggregator : ${aggregators}">
                         <td><span th:text="${aggregator.url}"></span></td>
-                        <td><span th:text="${aggregator.category}"></span></td>
+                        <td><span th:text="${aggregator.topic}"></span></td>
                         <td><span th:text="${aggregator.available}"></span></td>
                     </tr>
                     </tbody>

@@ -46,7 +46,7 @@ class UserSettingsController
             val userName = SecurityContextHolder.getContext().authentication.name
 
             userSettingService.addAggregator(userName, aggregatorForm.aggregatorType, aggregatorForm.url,
-                    aggregatorForm.category)
+                    aggregatorForm.topic)
         }
 
         return view

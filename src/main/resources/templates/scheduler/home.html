@@ -55,24 +55,13 @@
                 <tbody>
                 <tr>
                     <td>
-                        Aggregator:
+                        Topic:
                         <select th:field="*{aggregatorMappingId}">
-                            <option th:each="aggregatorMapping : ${aggregatorMappings}" th:value="${aggregatorMapping.id}" th:text="${aggregatorMapping.category}">Template</option>
+                            <option th:each="aggregatorMapping : ${aggregatorMappings}" th:value="${aggregatorMapping.id}" th:text="${aggregatorMapping.topic}">Template</option>
                         </select>
                     </td>
                     <td>
                         <span class="form-line" th:if="${#fields.hasErrors('aggregatorMappingId')}" th:errors="*{aggregatorMappingId}">Aggregator Error</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Aggregator Component:
-                        <select th:field="*{aggregatorType}">
-                            <option th:each="aggregatorType : ${aggregatorTypes}" th:value="${aggregatorType}" th:text="${aggregatorType}">Template</option>
-                        </select>
-                    </td>
-                    <td>
-                        <span class="form-line" th:if="${#fields.hasErrors('aggregatorType')}" th:errors="*{aggregatorType}">Aggregator Type Error</span>
                     </td>
                 </tr>
                 <tr>
@@ -132,7 +121,7 @@
                     <tr>
                         <td>Aggregator Type</td>
                         <td>Url</td>
-                        <td>Category</td>
+                        <td>Topic</td>
                         <td>Schedule Type</td>
                         <td>Time Unit</td>
                         <td>Time Scale</td>
@@ -144,7 +133,7 @@
                         <td class="hidden"><span th:id="schedulerConfigId" th:text="${scheduledTask.id}"></span></td>
                         <td><span th:text="${scheduledTask.aggregatorMapping.aggregatorType}"></span></td>
                         <td><span th:text="${scheduledTask.aggregatorMapping.url}"></span></td>
-                        <td><span th:text="${scheduledTask.aggregatorMapping.category}"></span></td>
+                        <td><span th:text="${scheduledTask.aggregatorMapping.topic}"></span></td>
                         <td><span th:text="${scheduledTask.type}"></span></td>
                         <td th:if="${scheduledTask.type.name() == 'ONCE'}"><span th:text="${scheduledTask.date}"></span></td>
                         <td th:if="${scheduledTask.type.name() == 'ONCE'}"><span></span></td>

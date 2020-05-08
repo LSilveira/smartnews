@@ -10,6 +10,4 @@ interface SchedulerConfigRepository : CrudRepository<SchedulerConfig, Long>
 {
     override fun findAll() : List<SchedulerConfig>
     fun findByEnabled(enabled: Boolean) : List<SchedulerConfig>
-    fun findByAggregatorMapping(aggregatorMappingId: Long) : SchedulerConfig?
-    fun findByAggregatorType(aggregatorType: AggregatorType): SchedulerConfig?
 }

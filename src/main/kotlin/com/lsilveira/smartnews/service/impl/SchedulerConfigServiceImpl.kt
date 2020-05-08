@@ -17,9 +17,4 @@ class SchedulerConfigServiceImpl : SchedulerConfigService
     {
         return schedulerConfigRepository.findByEnabled(true)
     }
-
-    override fun getByAggregatorType(aggregatorType: AggregatorType): SchedulerConfig?
-    {
-        return schedulerConfigRepository.findByAggregatorType(aggregatorType)
-    }
 }

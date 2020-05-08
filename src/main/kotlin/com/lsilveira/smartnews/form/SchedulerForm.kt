@@ -7,7 +7,6 @@ class SchedulerForm
 {
     var aggregatorMappingId: Long = 0
     var schedulerType: String = ""
-    var aggregatorType: String = ""
     var timeUnit: Long? = 1
     var timeScale: SchedulerTimeScale? = SchedulerTimeScale.HOURS
     var date: DateType? = DateType(Date())

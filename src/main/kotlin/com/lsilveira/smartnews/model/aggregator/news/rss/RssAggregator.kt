@@ -6,6 +6,7 @@ import com.lsilveira.smartnews.model.aggregator.AggregatorType
 import com.lsilveira.smartnews.model.aggregator.news.AggregatedData
 import com.lsilveira.smartnews.model.aggregator.news.News
 import com.lsilveira.smartnews.model.aggregator.news.NewsAggregator
+import com.lsilveira.smartnews.model.aggregator.news.NewsStatus
 import com.lsilveira.smartnews.service.NewsService
 import com.lsilveira.smartnews.service.SchedulerConfigService
 import com.lsilveira.smartnews.service.UserSettingService
@@ -45,12 +46,9 @@ class RssAggregator: NewsAggregator
             throw GetRssDataException("Aggregator was disabled.")
         }
 
-        val schedulerConfig = schedulerConfigService.getByAggregatorType(aggregatorMapping.aggregatorType)
-                ?:throw GetRssDataException("Scheduled config does not exist.")
-
         val feed = getRssData(aggregatorMapping.url)
 
-        val validatedFeed = validateRepeatedData(feed)
+        val validatedFeed = validateData(feed, context.repeated)
 
         if (validatedFeed.isEmpty())
             return null
@@ -60,7 +58,9 @@ class RssAggregator: NewsAggregator
                 feed?.description?:"",
                 feed?.publishedDate!!,
                 validatedFeed,
-                schedulerConfig)
+                aggregatorMapping.schedulerConfig
+                        ?:throw GetRssDataException("Scheduled config does not exist.")
+        )
     }
 
     override fun getType(): AggregatorType
@@ -89,18 +89,19 @@ class RssAggregator: NewsAggregator
         })
     }
 
-    private fun validateRepeatedData(feed: SyndFeed?) : List<News>
+    private fun validateData(feed: SyndFeed?, repeated: Boolean) : List<News>
     {
         val feedData = feed
                 ?.entries
-                ?.filter { syndEntry -> !newsService.checkIfNewsAreDuplicated(syndEntry) }
+                ?.filter { syndEntry -> repeated || !newsService.checkIfNewsAreDuplicated(syndEntry) }
                 ?.map { syndEntry -> News(
                         syndEntry.title,
                         syndEntry?.description?.value?:"",
                         syndEntry?.link?:"",
                         syndEntry?.source?.link?:"",
                         syndEntry.publishedDate,
-                        syndEntry.uri)
+                        syndEntry.uri,
+                        NewsStatus.RAW)
                 }
                 .orEmpty()
 

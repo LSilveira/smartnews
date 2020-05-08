@@ -13,5 +13,5 @@ class AggregatorForm
     var url: String = ""
 
     @NotEmpty(message = "{validation.not_empty.name}")
-    var category: String = ""
+    var topic: String = ""
 }

@@ -1,13 +1,16 @@
 package com.lsilveira.smartnews.controller
 
+import com.lsilveira.smartnews.exception.SchedulerException
 import com.lsilveira.smartnews.form.NewsForm
 import com.lsilveira.smartnews.model.aggregator.AggregatorContext
 import com.lsilveira.smartnews.model.aggregator.news.NewsAggregator
+import com.lsilveira.smartnews.service.NewsService
 import com.lsilveira.smartnews.service.UserSettingService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.ObjectError
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
@@ -22,6 +25,9 @@ class NewsController
     private lateinit var userSettingService: UserSettingService
 
     @Autowired
+    private lateinit var newsService: NewsService
+
+    @Autowired
     private lateinit var rssAggregator: NewsAggregator
 
     @GetMapping
@@ -29,6 +35,28 @@ class NewsController
     {
         val view = ModelAndView("news/home")
         view.addObject("newsForm", NewsForm())
+
+        return view
+    }
+
+    @GetMapping("/data")
+    fun newsData() : ModelAndView
+    {
+        val view = ModelAndView("news/data")
+
+        val userName = SecurityContextHolder.getContext().authentication.name
+        val aggregatorMappings = userSettingService.getAggregators(userName)
+
+        view.addObject("aggregators", aggregatorMappings)
+        view.addObject("newsForm", NewsForm())
+
+        return view
+    }
+
+    @GetMapping("/classify")
+    fun unClassifiedNews() : ModelAndView
+    {
+        val view = ModelAndView("news/home")
 
         return view
     }

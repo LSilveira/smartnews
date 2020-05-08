@@ -17,7 +17,7 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/scheduler/state",
+            url: "/ajax/scheduler/state",
             dataType: 'json',
             data: JSON.stringify({
                 "schedulerConfigId": schedulerConfigId,

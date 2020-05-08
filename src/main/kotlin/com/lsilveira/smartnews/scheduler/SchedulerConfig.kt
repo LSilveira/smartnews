@@ -19,7 +19,6 @@ data class SchedulerConfig
         val timeScale: SchedulerTimeScale?,
         val date: Date?,
 //        val wildcard: String,
-        val aggregatorType: AggregatorType,
         var enabled: Boolean,
 
         @Id
