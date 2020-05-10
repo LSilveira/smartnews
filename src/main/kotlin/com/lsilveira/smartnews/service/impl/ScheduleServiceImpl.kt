@@ -25,24 +25,24 @@ class ScheduleServiceImpl : ScheduleService
     private lateinit var userSettingService: UserSettingService
 
     override fun createScheduledTask(aggregatorMappingId: Long, schedulerType: SchedulerType,
-                                     timeUnit: Long, timeScale: SchedulerTimeScale)
+                                     cleanData: Boolean, timeUnit: Long, timeScale: SchedulerTimeScale)
     {
         val aggregatorMapping = userSettingService.getAggregatorMapping(aggregatorMappingId)
                 ?:throw SchedulerException("$aggregatorMappingId is an invalid aggregator mapping ID!")
 
-        val schedulerConfig = SchedulerConfig(aggregatorMapping, schedulerType, timeUnit,
+        val schedulerConfig = SchedulerConfig(aggregatorMapping, schedulerType, cleanData, timeUnit,
                 timeScale, null, false)
 
         schedulerConfigRepository.save(schedulerConfig)
     }
 
     override fun createScheduledTask(aggregatorMappingId: Long, schedulerType: SchedulerType,
-                                     date: Date)
+                                     cleanData: Boolean, date: Date)
     {
         val aggregatorMapping = userSettingService.getAggregatorMapping(aggregatorMappingId)
                 ?:throw SchedulerException("$aggregatorMappingId is an invalid aggregator mapping ID!")
 
-        val schedulerConfig = SchedulerConfig(aggregatorMapping, schedulerType, null,
+        val schedulerConfig = SchedulerConfig(aggregatorMapping, schedulerType, cleanData, null,
                 null, date, false)
 
         schedulerConfigRepository.save(schedulerConfig)

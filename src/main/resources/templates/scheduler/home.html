@@ -75,6 +75,15 @@
                         <span class="form-line" th:if="${#fields.hasErrors('schedulerType')}" th:errors="*{schedulerType}">Schedule Type Error</span>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        Clean Data:
+                        <input type="checkbox" th:field="*{cleanData}"/>
+                    </td>
+                    <td>
+                        <span class="form-line" th:if="${#fields.hasErrors('cleanData')}" th:errors="*{cleanData}">Clean Data Error</span>
+                    </td>
+                </tr>
                 <tr id="repeatableSchedule" class="hidden">
                     <td>
                         Time unit: <input type="text" th:field="*{timeUnit}" />
@@ -123,6 +132,7 @@
                         <td>Url</td>
                         <td>Topic</td>
                         <td>Schedule Type</td>
+                        <td>Clean Data</td>
                         <td>Time Unit</td>
                         <td>Time Scale</td>
                         <td>Enabled</td>
@@ -135,6 +145,7 @@
                         <td><span th:text="${scheduledTask.aggregatorMapping.url}"></span></td>
                         <td><span th:text="${scheduledTask.aggregatorMapping.topic}"></span></td>
                         <td><span th:text="${scheduledTask.type}"></span></td>
+                        <td><span th:text="${scheduledTask.cleanData}"></span></td>
                         <td th:if="${scheduledTask.type.name() == 'ONCE'}"><span th:text="${scheduledTask.date}"></span></td>
                         <td th:if="${scheduledTask.type.name() == 'ONCE'}"><span></span></td>
                         <td th:if="${scheduledTask.type.name() == 'REPEATABLE'}"><span th:text="${scheduledTask.timeUnit}"></span></td>

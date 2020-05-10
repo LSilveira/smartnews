@@ -1,6 +1,5 @@
 package com.lsilveira.smartnews.scheduler
 
-import com.lsilveira.smartnews.model.aggregator.AggregatorType
 import com.lsilveira.smartnews.model.aggregator.news.AggregatedData
 import com.lsilveira.smartnews.model.settings.AggregatorMapping
 import java.util.*
@@ -15,6 +14,7 @@ data class SchedulerConfig
         val aggregatorMapping: AggregatorMapping,
 
         val type: SchedulerType,
+        val cleanData: Boolean,
         val timeUnit: Long?,
         val timeScale: SchedulerTimeScale?,
         val date: Date?,

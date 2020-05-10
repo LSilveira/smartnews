@@ -23,4 +23,9 @@ interface NewsService
      * Get news data
      */
     fun getData(aggregatorMappingId: Long): List<News>
+
+    /**
+     * Clean all data by aggregator id
+     */
+    fun cleanAllData(aggregatorId: Long)
 }

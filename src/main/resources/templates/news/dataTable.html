@@ -12,7 +12,9 @@
         <tr>
             <td>ID</td>
             <td>Title</td>
+            <td>Cleaned Title</td>
             <td>Description</td>
+            <td>Cleaned Description</td>
             <td>Link</td>
             <td>Source</td>
             <td>Published Date</td>
@@ -23,7 +25,9 @@
         <tr th:each="article : ${articles}">
             <td><span th:text="${article.id}"></span></td>
             <td><span th:text="${article.title}"></span></td>
+            <td><span th:if="${article.status.name() == 'CLEANED'}" th:text="${article.processedNews.title}"></span></td>
             <td><span th:text="${article.description}"></span></td>
+            <td><span th:if="${article.status.name() == 'CLEANED'}" th:text="${article.processedNews.description}"></span></td>
             <td><span th:text="${article.link}"></span></td>
             <td><span th:text="${article.source}"></span></td>
             <td><span th:text="${article.publishedDate}"></span></td>

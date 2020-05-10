@@ -1,6 +1,6 @@
 package com.lsilveira.smartnews.controller
 
-import com.lsilveira.smartnews.exception.SchedulerException
+import com.lsilveira.smartnews.exception.SystemException
 import com.lsilveira.smartnews.form.NewsForm
 import com.lsilveira.smartnews.model.aggregator.AggregatorContext
 import com.lsilveira.smartnews.model.aggregator.news.NewsAggregator
@@ -10,11 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.validation.ObjectError
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
 
 @Controller
@@ -49,6 +45,21 @@ class NewsController
 
         view.addObject("aggregators", aggregatorMappings)
         view.addObject("newsForm", NewsForm())
+
+        return view
+    }
+
+    @GetMapping("/cleanAllData")
+    fun cleanAllNewsData(@RequestParam(name = "aggregatorId") aggregatorId: Long) : ModelAndView
+    {
+        val view = ModelAndView("redirect:/news/data")
+
+        if (aggregatorId <= 0)
+        {
+            throw SystemException("Invalid aggregator mapping id ${aggregatorId}.")
+        }
+
+        newsService.cleanAllData(aggregatorId)
 
         return view
     }

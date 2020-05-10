@@ -1,6 +1,5 @@
 package com.lsilveira.smartnews.service.impl
 
-import com.lsilveira.smartnews.model.aggregator.AggregatorType
 import com.lsilveira.smartnews.repository.SchedulerConfigRepository
 import com.lsilveira.smartnews.scheduler.SchedulerConfig
 import com.lsilveira.smartnews.service.SchedulerConfigService
@@ -16,5 +15,11 @@ class SchedulerConfigServiceImpl : SchedulerConfigService
     override fun readActiveTasks(): List<SchedulerConfig>
     {
         return schedulerConfigRepository.findByEnabled(true)
+    }
+
+    override fun getSchedulerConfig(schedulerConfigId: Long): SchedulerConfig?
+    {
+        return schedulerConfigRepository.findById(schedulerConfigId)
+                .orElse(null)
     }
 }

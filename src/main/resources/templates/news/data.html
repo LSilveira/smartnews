@@ -43,7 +43,7 @@
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="container create-menu">
-    <form action="#" th:action="@{/news/stats}" th:object="${newsForm}" method="post">
+    <form action="#" th:action="@{/news/cleanAllData}" th:object="${newsForm}" method="get">
         <fieldset>
             <legend th:text="#{news.data_stats}">Data Stats</legend>
 
@@ -57,6 +57,9 @@
                         <select id="aggregatorId" th:field="${newsForm.aggregatorId}">
                             <option th:each="aggregator : ${aggregators}" th:value="${aggregator.id}" th:text="${aggregator.topic}">Template</option>
                         </select>
+                    </td>
+                    <td>
+                        <input type="submit" value="Clean all data" />
                     </td>
                 </tr>
                 </tbody>

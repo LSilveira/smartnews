@@ -31,10 +31,10 @@ class Scheduler
         {
             when (schedulerConfig.type)
             {
-                SchedulerType.ONCE -> newsSingleTask(schedulerConfig.aggregatorMapping,
-                        aggregator, schedulerConfig.date?:throw SchedulingException("Invalid date!"))
-                SchedulerType.REPEATABLE -> newsRepeatableTask(schedulerConfig.aggregatorMapping,
-                        aggregator, schedulerConfig.timeUnit?:throw SchedulingException("Invalid time unit!"),
+                SchedulerType.ONCE -> newsSingleTask(schedulerConfig, aggregator,
+                        schedulerConfig.date?:throw SchedulingException("Invalid date!"))
+                SchedulerType.REPEATABLE -> newsRepeatableTask(schedulerConfig, aggregator,
+                        schedulerConfig.timeUnit?:throw SchedulingException("Invalid time unit!"),
                         schedulerConfig.timeScale?:throw SchedulingException("Invalid time scale!"))
             }
         }
@@ -49,18 +49,18 @@ class Scheduler
 
     }
 
-    private fun newsSingleTask(aggregatorMapping: AggregatorMapping, aggregator: Aggregator, date: Date)
+    private fun newsSingleTask(schedulerConfig: SchedulerConfig, aggregator: Aggregator, date: Date)
     {
-        executor.schedule(AggregateNewsTask(newsService, aggregatorMapping, aggregator), date)
-        logger.info("[Scheduled-Single-Task] $date ${aggregatorMapping.topic}")
+        executor.schedule(AggregateNewsTask(newsService, schedulerConfig, aggregator), date)
+        logger.info("[Scheduled-Single-Task] $date ${schedulerConfig.aggregatorMapping.topic}")
     }
 
-    private fun newsRepeatableTask(aggregatorMapping: AggregatorMapping, aggregator: Aggregator,
+    private fun newsRepeatableTask(schedulerConfig: SchedulerConfig, aggregator: Aggregator,
                                    timeUnit: Long,
                                    timeScale: SchedulerTimeScale)
     {
-        executor.scheduleAtFixedRate(AggregateNewsTask(newsService, aggregatorMapping, aggregator),
+        executor.scheduleAtFixedRate(AggregateNewsTask(newsService, schedulerConfig, aggregator),
                 timeUnit * timeScale.scale)
-        logger.info("[Scheduled-Repeatable-Task] $timeUnit ${timeScale.name} ${aggregatorMapping.topic}")
+        logger.info("[Scheduled-Repeatable-Task] $timeUnit ${timeScale.name} ${schedulerConfig.aggregatorMapping.topic}")
     }
 }
