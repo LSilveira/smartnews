@@ -32,7 +32,7 @@ data class News
     @JoinColumn(name = "AGGREGATED_DATA_ID")
     lateinit var aggregatedData: AggregatedData
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "PROCESSED_NEWS_ID")
-    lateinit var processedNews: ProcessedNews
+    var processedNews: ProcessedNews? = null
 }

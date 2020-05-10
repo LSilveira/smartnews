@@ -25,6 +25,6 @@ data class AggregatorMapping
         val id: Long = 0
 )
 {
-        @OneToOne(mappedBy = "aggregatorMapping")
-        var schedulerConfig: SchedulerConfig? = null
+        @OneToMany(mappedBy = "aggregatorMapping", cascade = [CascadeType.ALL], orphanRemoval = true)
+        val schedulerConfigs: MutableList<SchedulerConfig> = mutableListOf()
 }

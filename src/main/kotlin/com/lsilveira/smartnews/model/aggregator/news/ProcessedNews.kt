@@ -15,9 +15,13 @@ data class ProcessedNews
         @Type(type="text")
         var description: String,
 
-        var sentiment: TextSentiment,
+        var sentiment: TextSentiment?,
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long = 0
 )
+{
+        @OneToOne(mappedBy = "processedNews")
+        var news: News? = null
+}

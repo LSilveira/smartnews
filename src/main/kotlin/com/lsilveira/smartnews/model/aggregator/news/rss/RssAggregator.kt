@@ -38,15 +38,15 @@ class RssAggregator: NewsAggregator
 
     override fun aggregate(context: AggregatorContext): AggregatedData?
     {
-        val aggregatorMapping = userSettingService.getAggregatorMapping(context.mappingId)
-                ?:throw GetRssDataException("Aggregator id does not exist.")
+        val schedulerConfig = schedulerConfigService.getSchedulerConfig(context.schedulerConfigId)
+                ?:throw GetRssDataException("Scheduler config id does not exist.")
 
-        if (!aggregatorMapping.available) // TODO add a test for this validation
+        if (!schedulerConfig.aggregatorMapping.available) // TODO add a test for this validation
         {
             throw GetRssDataException("Aggregator was disabled.")
         }
 
-        val feed = getRssData(aggregatorMapping.url)
+        val feed = getRssData(schedulerConfig.aggregatorMapping.url)
 
         val validatedFeed = validateData(feed, context.repeated)
 
@@ -58,8 +58,7 @@ class RssAggregator: NewsAggregator
                 feed?.description?:"",
                 feed?.publishedDate!!,
                 validatedFeed,
-                aggregatorMapping.schedulerConfig
-                        ?:throw GetRssDataException("Scheduled config does not exist.")
+                schedulerConfig
         )
     }
 

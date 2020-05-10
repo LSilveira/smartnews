@@ -113,7 +113,7 @@ class SchedulerController
         }
 
         scheduleService.createScheduledTask(schedulerForm.aggregatorMappingId, schedulerType,
-                dateTime!!)
+                schedulerForm.cleanData, dateTime!!)
     }
 
     private fun createMultipleSchedules(schedulerForm: SchedulerForm, schedulerType: SchedulerType,
@@ -132,6 +132,6 @@ class SchedulerController
         }
 
         scheduleService.createScheduledTask(schedulerForm.aggregatorMappingId, schedulerType,
-                timeUnit!!, timeScale!!)
+                schedulerForm.cleanData, timeUnit!!, timeScale!!)
     }
 }
