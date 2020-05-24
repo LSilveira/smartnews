@@ -41,4 +41,9 @@ interface ScheduleService
      * Get scheduler config
      */
     fun getSchedulerConfig(schedulerConfigId: Long): SchedulerConfig?
+
+    /**
+     * Load scheduled tasks
+     */
+    fun loadScheduledTasks()
 }
