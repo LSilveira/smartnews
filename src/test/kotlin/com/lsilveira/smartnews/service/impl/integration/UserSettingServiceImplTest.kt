@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest //(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ExtendWith(SpringExtension::class)
 internal class UserSettingServiceImplTest
 {
@@ -21,7 +21,7 @@ internal class UserSettingServiceImplTest
     private val USERNAME = "username2"
     private val AGGREGGATOR_TYPE = AggregatorType.RSS
     private val TOPIC = "News"
-    private val URL = "www.smartnews.com"
+    private val URL = "http://www.smartnews.com"
 
     @Autowired
     private lateinit var userSettingService: UserSettingService

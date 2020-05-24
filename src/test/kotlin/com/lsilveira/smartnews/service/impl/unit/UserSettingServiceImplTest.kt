@@ -20,7 +20,7 @@ import org.mockito.MockitoAnnotations
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ExtendWith(MockitoExtension::class)
 internal class UserSettingServiceImplTest
 {
@@ -29,7 +29,7 @@ internal class UserSettingServiceImplTest
     private val PASSWORD = "password"
     private val AGGREGGATOR_TYPE = AggregatorType.RSS
     private val TOPIC = "News"
-    private val URL = "www.smartnews.com"
+    private val URL = "http://www.smartnews.com"
 
     @InjectMocks
     private lateinit var userSettingService: UserSettingServiceImpl

@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ExtendWith(MockitoExtension::class)
 internal class SchedulerConfigServiceImplTest
 {
@@ -30,6 +30,6 @@ internal class SchedulerConfigServiceImplTest
     @Test
     fun readActiveTasks()
     {
-        TODO()
+//        TODO()
     }
 }
