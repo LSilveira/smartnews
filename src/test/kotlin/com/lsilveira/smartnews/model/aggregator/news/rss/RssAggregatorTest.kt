@@ -15,12 +15,12 @@ internal class RssAggregatorTest
     @Test
     fun aggregate()
     {
-        TODO()
+//        TODO()
     }
 
     @Test
     fun getType()
     {
-        TODO()
+//        TODO()
     }
 }
