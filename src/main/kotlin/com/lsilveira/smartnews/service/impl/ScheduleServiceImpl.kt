@@ -83,4 +83,10 @@ class ScheduleServiceImpl : ScheduleService
         return schedulerConfigRepository.findById(schedulerConfigId)
                 .orElse(null)
     }
+
+    override fun loadScheduledTasks()
+    {
+        val schedulerConfig = schedulerConfigRepository.findByEnabled(true)
+        schedulerConfig.forEach { scheduler.runSchedule(it) }
+    }
 }
