@@ -1,7 +1,6 @@
 package com.lsilveira.smartnews.scheduler
 
 import com.lsilveira.smartnews.model.aggregator.Aggregator
-import com.lsilveira.smartnews.model.settings.AggregatorMapping
 import com.lsilveira.smartnews.scheduler.task.AggregateNewsTask
 import com.lsilveira.smartnews.service.NewsService
 import org.slf4j.Logger
@@ -61,6 +60,6 @@ class Scheduler
     {
         executor.scheduleAtFixedRate(AggregateNewsTask(newsService, schedulerConfig, aggregator),
                 timeUnit * timeScale.scale)
-        logger.info("[Scheduled-Repeatable-Task] $timeUnit ${timeScale.name} ${schedulerConfig.aggregatorMapping.topic}")
+        logger.info("[Scheduled-Repeatable-Task] $timeUnit ${timeScale.description} ${schedulerConfig.aggregatorMapping.topic}")
     }
 }

@@ -26,11 +26,11 @@ class AggregateNewsTask
         if (data != null)
         {
             newsService.createNewsRecord(data)
-            logger.info("Scheduler ${schedulerConfig.id} collected ${data.feed.size} news!")
+            logger.info("Scheduler ${schedulerConfig.aggregatorMapping.topic} collected ${data.feed.size} news!")
         }
         else
         {
-            logger.info("Scheduler ${schedulerConfig.id} has no new data to collect!")
+            logger.info("Scheduler ${schedulerConfig.aggregatorMapping.topic} has no new data to collect!")
         }
     }
 }
