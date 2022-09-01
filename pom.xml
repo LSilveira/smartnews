@@ -29,7 +29,7 @@
 		<webjars.locator.version>0.30</webjars.locator.version>
 		<font-awesome.version>5.11.2</font-awesome.version>
 		<timepicker.version>1.11.14</timepicker.version>
-		<jsoup.version>1.13.1</jsoup.version>
+		<jsoup.version>1.15.3</jsoup.version>
 	</properties>
 
 	<dependencies>
